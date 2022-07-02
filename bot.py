@@ -4,9 +4,8 @@ import logging
 from aiogram import Bot, Dispatcher
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from aiogram.contrib.fsm_storage.redis import RedisStorage2
-from aiogram_dialog import DialogRegistry
 
-from setup import register_all_dialogs, register_all_handlers
+from setup import register_all_handlers
 from tgbot.config import load_config
 from tgbot.filters.admin import AdminFilter
 from tgbot.middlewares.db import DbSessionMiddleware
@@ -43,7 +42,6 @@ async def main():
     bot = Bot(token=config.tg_bot.token, parse_mode='HTML')
     dp = Dispatcher(bot, storage=storage)
     sessionmaker = await create_db_session(config)
-    registry = DialogRegistry(dp)
 
     bot['config'] = config
 
@@ -52,7 +50,6 @@ async def main():
 
     register_all_middlewares(dp, sessionmaker)
     register_all_filters(dp)
-    register_all_dialogs(registry)
     register_all_handlers(dp)
 
     # start

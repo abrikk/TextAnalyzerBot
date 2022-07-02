@@ -1,10 +1,11 @@
 from aiogram import Dispatcher
-from aiogram_dialog import DialogRegistry
 
-
-def register_all_dialogs(dialog_registry: DialogRegistry):
-    pass
+from tgbot.handlers.analyze import register_analyze_text
+from tgbot.handlers.help import register_help
+from tgbot.handlers.start import register_start
 
 
 def register_all_handlers(dp: Dispatcher):
-    pass
+    register_start(dp)
+    register_help(dp)
+    register_analyze_text(dp)
