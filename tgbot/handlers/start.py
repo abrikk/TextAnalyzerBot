@@ -24,7 +24,7 @@ async def start_handler(message: Message, session):
         await session.commit()
 
     text = (f"Welcome, {message.from_user.first_name}!\n"
-            f"I can analyze any text in any language and show you: \n\n"
+            f"I can analyze any text in any language and show you: \n"
             f"• How many symbols, words and punctuations are in the text; \n\n"
             f"• Found palindromes in the text; \n\n"
             f"• The most frequent words in the text; \n\n"

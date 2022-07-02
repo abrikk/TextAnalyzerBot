@@ -39,7 +39,7 @@ class Text:
 
     def frequent_words(self, n: int or None = None) -> list:
         counted_words = Counter(self.only_letters().split()).most_common(n)
-        return [(word, quantity) for word, quantity in counted_words if quantity >= 3]
+        return [(word, quantity) for word, quantity in counted_words if quantity >= 3 and len(word) >= 3]
 
     def number_of_languages(self):
         return len(self.detect_languages())

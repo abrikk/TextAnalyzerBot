@@ -1,18 +1,8 @@
 version: "3.8"
 
 services:
-    redis:
-        image: redis:6-alpine
-        restart: "unless-stopped"
-        environment:
-            VOLUMES_DIR: ${VOLUMES_DIR}
-        volumes:
-            - "~/${VOLUMES_DIR}/redis-data:/data"
-        ports:
-            - "5379:6379"
-        command: "redis-server"
     db:
-        container_name: database
+        container_name: database_tabot
         image: postgres:14-alpine
         restart: "unless-stopped"
         environment:
@@ -24,9 +14,9 @@ services:
             - "~/${VOLUMES_DIR}/pg-data:/var/lib/postgresql/data"
             - "~/${VOLUMES_DIR}/backups:/backups"
         ports:
-            - "5555:5432"
+            - "6666:5432"
     db_migration:
-        container_name: database_migration
+        container_name: database_migration_tabot
         build:
             context: .
         restart: "on-failure"
@@ -35,7 +25,7 @@ services:
         env_file: .env
         command: sh -c "python -m alembic upgrade head"
     dbbackup:
-       container_name: database_backups
+       container_name: database_backups_tabot
        image: prodrigestivill/postgres-backup-local:14-alpine
        restart: always
        volumes:
@@ -48,7 +38,7 @@ services:
          - SCHEDULE=@daily
          - HEALTHCHECK_PORT=8080
     bot:
-        container_name: tgbot
+        container_name: tabot
         build:
             context: .
         stop_signal: SIGINT

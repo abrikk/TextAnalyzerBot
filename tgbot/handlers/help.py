@@ -5,7 +5,7 @@ from aiogram.types import Message
 
 async def help_handler(message: Message):
     text = (f"Hello, {message.from_user.first_name}! 👾\n"
-            f"I can analyze text and show you: \n\n"
+            f"I can analyze text and show you: \n"
             f"• How many symbols, words and punctuations are in the text; \n\n"
             f"• Found palindromes in the text; \n\n"
             f"• The most frequent words in the text; \n\n"
